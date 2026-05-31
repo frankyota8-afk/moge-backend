@@ -1,0 +1,10 @@
+django==5.2.13
+dj_rest_auth
+djangorestframework
+django-cors-headers
+dotenv
+django-allauth
+mysqlclient
+djangorestframework-simplejwt
+bcrypt
+requests
