@@ -10,3 +10,4 @@ bcrypt
 requests
 gunicorn
 django-cleanup
+pymupdf
