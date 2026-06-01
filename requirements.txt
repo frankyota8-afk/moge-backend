@@ -12,3 +12,4 @@ gunicorn
 django-cleanup
 pymupdf
 google 
+google-genai
