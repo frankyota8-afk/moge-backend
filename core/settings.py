@@ -225,6 +225,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "https://moge.up.railway.app",
     "http://localhost:5173",  # Vite frontend
+    "http://127.0.0.1:5173",
     "http://10.99.58.196:5173",
 ]
 
@@ -237,9 +238,16 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 REST_AUTH.update({
     "JWT_AUTH_COOKIE_USE_CSRF": False,
-    "JWT_AUTH_SAMESITE": "Lax",   # use "None" + Secure=True for HTTPS
-    "JWT_AUTH_SECURE": False,     # True in production (HTTPS)
+    "JWT_AUTH_SAMESITE": "None",   # use "None" + Secure=True for HTTPS
+    "JWT_AUTH_SECURE": True,     # True in production (HTTPS)
 })
+
+# Change these lines to be conditional:
+SESSION_COOKIE_SAMESITE = "Lax" if DEBUG else "None"
+CSRF_COOKIE_SAMESITE = "Lax" if DEBUG else "None"
+
+SESSION_COOKIE_SECURE = False if DEBUG else True
+CSRF_COOKIE_SECURE = False if DEBUG else True
 
 #Email Configuration
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
