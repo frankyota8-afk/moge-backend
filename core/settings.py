@@ -115,6 +115,17 @@ DATABASES = {
     }   
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'railway',
+#         'USER':'root',
+#         'PASSWORD':'tLEPdDIFtJodFXkPZsIRNsiitFKCLmHK',
+#         'HOST':'gondola.proxy.rlwy.net',
+#         'PORT':'37376'
+#     }   
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
