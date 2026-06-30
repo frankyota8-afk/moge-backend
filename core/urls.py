@@ -21,7 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/',include('authentication.presentation.urls')),
     path('account/', include('allauth.urls')),   
-
     path('api/role/', include('features.roles.presentation.api.urls')),
     path('api/rank/', include('features.ranks.presentation.rank_urls')),
     path('api/room/', include('features.rooms.presentation.room_urls')),
@@ -35,6 +34,7 @@ urlpatterns = [
     path('api/', include('features.chats.urls')),
     path('api/department/', include('features.departments.presentation.department_api')),
     path('api/dashboard/', include('features.dashboard.urls')),
+    path('api/location/', include('features.locations.urls')),
 ]
 
 from django.conf import settings

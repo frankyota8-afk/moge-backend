@@ -39,7 +39,6 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
-
 INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "django.contrib.admin",
@@ -66,6 +65,7 @@ INSTALLED_APPS = [
     "features.logs",
     "features.chats",
     "features.dashboard",
+    "features.locations",
     "authentication",
 ]
 
