@@ -138,6 +138,7 @@ def router_agent(client, user_query):
     Analyze the user request and categorize it into ONE of these two categories:
     1. 'DATABASE': If the user asks about structured data, student records, counts, or anything requiring a SQL query.
     2. 'DOCUMENT': If the user asks to analyze, summarize, or extract info from uploaded files/text context.
+    3. 'GENERAL': If the user asks general question or greeting with you.
 
     User Request: "{user_query}"
     Output only the word 'DATABASE' or 'DOCUMENT'.
