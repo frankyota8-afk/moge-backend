@@ -151,3 +151,23 @@ def router_agent(client, user_query):
     
     return decision
 
+def general_agent(client):
+    system_prompt = """
+    You are an AI assistat which can answer general questions.
+
+    Instructions:
+    chat with the user in a friendly way mainly use burmese language.
+    """
+
+    config = types.GenerateContentConfig(
+        system_instruction=system_prompt,
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=False)
+    )
+
+    chat = client.chats.create(
+        model="gemma-4-31b-it", # Recommended for reliable Tool Use
+        config=config
+    )
+
+    return chat
+
