@@ -8,7 +8,7 @@ from .models import ChatMessage, Document
 from .services.chat_memory import save_to_chroma, retrieve_memory
 from .services.rag import store_document, retrieve_docs
 from .services.summarizer import summarize
-from .services.llm import call_llm, router_agent, sql_agent
+from .services.llm import call_llm, router_agent, sql_agent, general_agent
 from .services.helpers import format_context
 
 @api_view(['POST'])
@@ -25,6 +25,48 @@ def chat(request):
     request_type = router_agent(client, message)
 
     print("this is the request type : ", request_type)
+
+    if request_type == "GENERAL" and file is None:
+
+        # 🔹 Save user message
+        if message:
+            ChatMessage.objects.create(
+                user_id=user.id,
+                role="user",
+                content=message
+            )
+            save_to_chroma(str(user.id), "user", message)
+
+        # 🔹 Get recent chat
+        recent = ChatMessage.objects.filter(user_id=user.id)\
+            .order_by('-created_at')[:5]
+
+        recent = [{"role": m.role, "content": m.content} for m in reversed(recent)]
+
+        # 🔹 Retrieve memory (vector DB)
+        memory = retrieve_memory(str(user.id), message)
+
+        # 🔹 Build context for SQL agent
+        context = memory + recent
+        context.append({"role": "user", "content": message})
+
+        context = format_context(context)
+        # 🔹 Call SQL agent with context instead of plain message
+        response = general_agent(client).send_message(context)
+
+        # 🔹 Save response
+        ChatMessage.objects.create(
+            user_id=user.id,
+            role="assistant",
+            content=response.text
+        )
+        save_to_chroma(str(user.id), "assistant", response.text)
+
+        return Response({
+            "response": response.text,
+            "source": "database_with_memory"
+        })
+
 
     if request_type == "DATABASE" and file is None:
 
