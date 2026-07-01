@@ -19,7 +19,7 @@ client = genai.Client()
 def get_embedding(text):
     # Use 'text-embedding-004' for standard text or 'gemini-embedding-2' for multimodal
     response = client.models.embed_content(
-        model="text-embedding-004",
+        model="gemini-embedding-001",
         contents=text,
         config=types.EmbedContentConfig(
             task_type="RETRIEVAL_DOCUMENT" # Optional: specify based on your use case
